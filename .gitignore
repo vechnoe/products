@@ -1,0 +1,13 @@
+media/
+static_collected/
+.env/
+env/
+logs/
+.idea/
+*.log
+*.pyc
+settings_local.py
+*.pid
+*.sqlite3
+*.sw*
+*~

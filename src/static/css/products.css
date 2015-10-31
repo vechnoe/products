@@ -1,0 +1,45 @@
+body {
+  padding-top: 70px;
+}
+
+.caption {
+  height: 130px;
+  overflow: hidden;
+}
+
+.caption h4 {
+  white-space: nowrap;
+  padding-left: 15px;
+}
+
+.login-form {
+  padding-top: 40px;
+}
+
+.price {
+  padding-right: 25px;
+}
+
+.ratings {
+  padding-right: 25px;
+  padding-left: 25px;
+  padding-bottom: 20px;
+  color: #d17581;
+}
+
+.thumbnail {
+  padding: 0;
+}
+
+.thumbnail .caption-full {
+  padding: 9px;
+  color: #333;
+}
+
+.comment-body {
+  padding-top: 15px;
+}
+
+footer {
+  margin: 50px 0;
+}

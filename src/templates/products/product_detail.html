@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load pytils_numeral %}
+{% load products_tags %}
+
+{% block title %}
+  {{ product.name }} | Products
+{% endblock %}
+
+{% block breadcrubms %}
+  <ol class="breadcrumb">
+    <li><a href="/" title="">Home</a></li>
+    <li class="active">{{ product.name }}</li>
+  </ol>
+{% endblock %}
+
+{% block content %}
+{% with comments=product.get_last_comments %}
+<div class="col-md-12">
+  <div class="thumbnail">
+    <div class="caption">
+      <h4>{{ product.name }}</h4>
+      <h4 class="pull-right price">${{ product.price }}</h4>
+      <div class="col-md-8 pull-left">
+        <p>{{ product.description }}</p>
+      </div>
+    </div>
+    <div class="ratings">
+      <p class="pull-right">
+        {% if comments.count == 0 %}
+          No comments
+        {% else %}
+          {{ comments.count }}
+          {{ comments.count|choose_plural:"Comment, Comments, Comments" }}
+        {% endif %}
+      </p>
+      {% like_button product %}
+    </div>
+  </div>
+  <div class="well">
+    <form action="." method="post" id="comment-form">
+      {% csrf_token %}
+      <div class="form-group {% if form.errors %}has-error{% endif %}">
+        <label class="control-label" for="id_text">Leave a comment</label>
+        <textarea type="text"
+               class="form-control"
+               name="text"
+               placeholder="Text"
+               id="id_text" aria-describedby="helpBlock"></textarea>
+        {% if form.errors %}
+          {% for error in form.text.errors %}
+            <span id="helpBlock" class="help-block">{{ error }}</span>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="text-right">
+        <input type="submit"
+               class="btn btn-success text-right" value="Send"/>
+      </div>
+    </form>
+    <hr>
+    {% for comment in comments %}
+    <div class="row">
+      <div class="col-md-12">
+        {{ comment.user|default_if_none:"Anonimous" }}
+        <span class="pull-right">{{ comment.created_at|date:"H:i, M d" }}</span>
+        <p class="comment-body">{{ comment.text }}</p>
+      </div>
+    </div>
+    <hr>
+    {% endfor %}
+  </div>
+</div>
+{% endwith %}
+{% endblock %}

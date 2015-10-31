@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load pytils_numeral %}
+{% load sorting_tags %}
+{% load products_tags %}
+
+{% block title %}Products | Home{% endblock %}
+
+{% block breadcrubms %}
+  <ol class="breadcrumb">
+    <li class="active">Home</li>
+  </ol>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="pull-right">
+          Sort by: {% anchor likes "Likes" %}
+        </div>
+      </div>
+    </div>
+    {% autosort object_list %}
+    {% autopaginate object_list %}
+    {% for product in object_list %}
+    <div class="thumbnail">
+      <div class="caption">
+        <h4>
+          <a href="{% url 'products:product_detail' product.slug %}">
+            {{ product.name }}
+          </a>
+        </h4>
+        <h4 class="pull-right price">${{ product.price }}</h4>
+        <div class="col-md-8 pull-left">
+          <p>{{ product.description }}</p>
+        </div>
+      </div>
+      <div class="ratings">
+        <p class="pull-right">
+          {% with comments=product.get_last_comments.count %}
+            {% if comments == 0 %}
+              No comments
+            {% else %}
+              {{ comments }}
+              {{ comments|choose_plural:"Comment, Comments, Comments" }}
+            {% endif %}
+          {% endwith %}
+        </p>
+        {% like_button product %}
+      </div>
+    </div>
+    {% empty %}
+      <h3>No products</h3>
+    {% endfor %}
+  </div>
+</div>
+{% paginate %}
+{% endblock %}

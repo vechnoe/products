@@ -1,0 +1,14 @@
+Django==1.8
+psycopg2==2.5.3
+django-pagination-bootstrap==1.0.7
+django-pagination==1.0.7
+pytils
+webstack-django-sorting
+
+ipdb==0.8
+nose
+mock
+coverage
+factory-boy==2.4.1
+
+gunicorn

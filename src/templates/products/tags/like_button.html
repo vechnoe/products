@@ -1,0 +1,7 @@
+<button type="button"
+        value="{{ product.id }}"
+        class="btn btn-primary btn-sm make-like"
+        {% if not can_like %}disabled="disabled"{% endif %}>
+        <span class="text-like">{{ product.likes }}</span>
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+</button>

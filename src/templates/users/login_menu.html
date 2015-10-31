@@ -1,0 +1,30 @@
+<ul class="nav navbar-nav navbar-right">
+  {% if user.is_authenticated %}
+  <li class="dropdown">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        {{ user }}
+      <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      {% if user.is_superuser %}
+      <li>
+        <a href="/admin/">
+          Admin
+        </a>
+      </li>
+      {% endif %}
+      <li class="divider"></li>
+      <li>
+        <a href="{% url 'users:logout' %}">
+          Logout
+        </a>
+      </li>
+    </ul>
+  </li>
+  {% else %}
+    <p class="navbar-text navbar-right">
+      <a href="{% url 'users:login' %}" class="navbar-link">Login
+      </a>
+    </p>
+  {% endif %}
+</ul>
