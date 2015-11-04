@@ -119,7 +119,8 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 if not DEBUG:
     from production.settings import *
-from development.settings import *
+elif DEBUG:
+    from development.settings import *
 
 # If got an error creating the test database:
 # permission denied to create database

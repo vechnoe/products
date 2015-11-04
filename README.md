@@ -2,6 +2,8 @@ Products
 ========
 Simple e-commerce application
 
+Demo: [http://products.dev.drevle.com/](http://products.dev.drevle.com/)
+
 
 Installation
 ------------
