@@ -122,9 +122,9 @@ from development.settings import *
 
 # If got an error creating the test database:
 # permission denied to create database
-# just make => ALTER USER test_user CREATEDB;
+# just make => ALTER USER products_user CREATEDB;
 if 'test' in sys.argv:
-    DATABASES['default']['USER'] = 'test_user'
+    DATABASES['default']['USER'] = 'products_user'
 
 
 # FOR DEV STAGE ONLY. SHOWS DEBUG_TOOLBAR TO EVERY VISITOR.
