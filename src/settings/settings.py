@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'pytils',
     'django_nose',
     'debug_toolbar',
+    'cacheops',
 
     'users',
     'products'
@@ -125,6 +126,24 @@ from development.settings import *
 # just make => ALTER USER products_user CREATEDB;
 if 'test' in sys.argv:
     DATABASES['default']['USER'] = 'products_user'
+
+
+CACHEOPS_REDIS = {
+    'host': 'localhost',  # redis-server is on same machine
+    'port': 6379,        # default redis port
+    'db': 1,             # SELECT non-default redis database
+                         # using separate redis db or redis instance
+                         # is highly recommended
+    'socket_timeout': 8,
+}
+
+CACHEOPS = {
+    'auth.user': {'ops': 'get', 'timeout': 60*15},
+    'products.product': {'ops': 'all', 'timeout': 60*60},
+}
+
+if 'test' in sys.argv:
+    CACHEOPS_FAKE = True
 
 
 # FOR DEV STAGE ONLY. SHOWS DEBUG_TOOLBAR TO EVERY VISITOR.

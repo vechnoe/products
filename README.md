@@ -5,6 +5,10 @@ Simple e-commerce application
 
 Installation
 ------------
+Make sure that the redis is running on port 6379 and 
+the redis-server version >= 2.6.0,
+otherwise comment out 'cacheops' INSTALLED_APPS
+
 Create postgress db & db user:
 
 ```
