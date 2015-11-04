@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from django.contrib import admin
 from django.contrib.admin.views import main
 from django.core.urlresolvers import reverse
@@ -20,8 +22,12 @@ class ProductAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     def __init__(self, *args, **kwargs):
         super(CommentAdmin, self).__init__(*args, **kwargs)
-        main.EMPTY_CHANGELIST_VALUE = 'Anonimous'
-    list_display = ('user', 'created_at', 'product')
+        main.EMPTY_CHANGELIST_VALUE = 'Anonymous'
+
+    def comment_date(self, object):
+        return unicode(object)
+    comment_date.short_description = 'Comment date'
+    list_display = ('user', 'comment_date', 'product')
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Comment, CommentAdmin)

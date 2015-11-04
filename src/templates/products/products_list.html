@@ -24,7 +24,8 @@
     </div>
     {% autosort object_list %}
     {% autopaginate object_list %}
-    {% for product in object_list %}
+    {% for object in object_list %}
+    {% with object as product %}
     <div class="thumbnail">
       <div class="caption">
         <h4>
@@ -39,18 +40,19 @@
       </div>
       <div class="ratings">
         <p class="pull-right">
-          {% with comments=product.get_last_comments.count %}
-            {% if comments == 0 %}
+          {% with product.comments.all as comments %}
+            {% if comments.count == 0 %}
               No comments
             {% else %}
-              {{ comments }}
-              {{ comments|choose_plural:"Comment, Comments, Comments" }}
+              {{ comments.count }}
+              {{ comments.count|choose_plural:"Comment, Comments, Comments" }}
             {% endif %}
           {% endwith %}
         </p>
         {% like_button product %}
       </div>
     </div>
+    {% endwith %}
     {% empty %}
       <h3>No products</h3>
     {% endfor %}

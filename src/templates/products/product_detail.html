@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-{% with comments=product.get_last_comments %}
+{% with product.comments.all as comments %}
 <div class="col-md-12">
   <div class="thumbnail">
     <div class="caption">
@@ -43,10 +43,10 @@
       <div class="form-group {% if form.errors %}has-error{% endif %}">
         <label class="control-label" for="id_text">Leave a comment</label>
         <textarea type="text"
-               class="form-control"
-               name="text"
-               placeholder="Text"
-               id="id_text" aria-describedby="helpBlock"></textarea>
+                  class="form-control"
+                  name="text"
+                  placeholder="Text"
+                  id="id_text" aria-describedby="helpBlock"></textarea>
         {% if form.errors %}
           {% for error in form.text.errors %}
             <span id="helpBlock" class="help-block">{{ error }}</span>
@@ -62,8 +62,9 @@
     {% for comment in comments %}
     <div class="row">
       <div class="col-md-12">
-        {{ comment.user|default_if_none:"Anonimous" }}
-        <span class="pull-right">{{ comment.created_at|date:"H:i, M d" }}</span>
+        {{ comment.user|default_if_none:"Anonymous" }}
+        <span class="pull-right">
+          {{ comment.created_at|date:"H:i, M d" }}</span>
         <p class="comment-body">{{ comment.text }}</p>
       </div>
     </div>

@@ -16,7 +16,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 
 
-class LoginView(FormView,):
+class LoginView(FormView):
     """
     Provides the ability to login as a user with a username and password
     """
@@ -34,11 +34,15 @@ class LoginView(FormView,):
 
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(LoginView, self).get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        return context
+
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return HttpResponseRedirect(self.success_url)
-        return self.render_to_response(
-            self.get_context_data(form=self.form_class))
+        return self.render_to_response(self.get_context_data())
 
     def form_valid(self, form):
         auth_login(self.request, form.get_user())

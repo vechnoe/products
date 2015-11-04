@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'pagination_bootstrap',
     'webstack_django_sorting',
     'pytils',
+    'django_nose',
+    'debug_toolbar',
 
     'users',
     'products'
@@ -112,6 +114,19 @@ STATICFILES_DIRS = (
 
 PAGINATION_DEFAULT_PAGINATION = 5
 
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 if not DEBUG:
     from production.settings import *
 from development.settings import *
+
+# If got an error creating the test database:
+# permission denied to create database
+# just make => ALTER USER test_user CREATEDB;
+if 'test' in sys.argv:
+    DATABASES['default']['USER'] = 'test_user'
+
+
+# FOR DEV STAGE ONLY. SHOWS DEBUG_TOOLBAR TO EVERY VISITOR.
+def show_toolbar(request):
+    return True

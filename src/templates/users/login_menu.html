@@ -1,12 +1,12 @@
 <ul class="nav navbar-nav navbar-right">
-  {% if user.is_authenticated %}
+  {% if site_user.is_authenticated %}
   <li class="dropdown">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle">
       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-        {{ user }}
+        {{ site_user }}
       <b class="caret"></b></a>
     <ul class="dropdown-menu">
-      {% if user.is_superuser %}
+      {% if site_user.is_superuser %}
       <li>
         <a href="/admin/">
           Admin

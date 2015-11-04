@@ -6,7 +6,7 @@ NOSE?=$(VENV_DIR)/bin/nosetests
 
 .PHONY: all clean test run requirements install virtualenv
 
-all: virtualenv install create_database create_admin
+all: virtualenv install create_database create_admin test
 
 virtualenv:
 	virtualenv $(VENV_DIR)
@@ -41,7 +41,7 @@ shell:
 	$(PYTHON) manage.py shell
 
 test:
-	$(NOSE) $(PROJECT_DIR)/src --verbose
+	$(PYTHON) manage.py test src/apps --verbosity=1 --logging-level=ERROR
 
 clean_temp:
 	find . -name '*.pyc' -delete
