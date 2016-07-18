@@ -2,9 +2,6 @@ Products
 ========
 Simple e-commerce application
 
-Demo: [http://products.dev.drevle.com/](http://products.dev.drevle.com/)
-
-
 Installation
 ------------
 Make sure that the redis is running on port 6379 and 
